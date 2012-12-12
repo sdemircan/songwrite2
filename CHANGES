@@ -1,0 +1,336 @@
+New stuff at the end.
+
+ * Jan 2002 : GTablature 0.0.1
+   * First release.
+
+ * Fev 2002 : GTablature 0.1
+   * Added a demo song
+   * Instrument selection
+   * I18n (including French translation)
+   * Support multiple partitions with different instruments and different views
+     (Tablature is the only usable view implemented).
+   * Rythm dialog box allow to change the rythm of some or all mesures.
+     Only x/4 (4/4, 3/4, ...) rythms are supported now as i don't really
+     know what is 6/8 or other...
+     Syncope picking is also supported !
+   * Note properties dialog box
+   * Configuration druid
+   * Dragging the mouse can now select many note. Middle-clicking paste the
+     last selection. Drag/drop is supported !
+   * Bugfix :
+     * Re-tune GTablature (0.0.1 was one octavo too low !)
+     * small other bugfixes
+
+ * April 2002 : GTablature 0.2
+   * Integration with GChord via Bonobo !
+   * Lyrics !
+   * Graphic support for Hammer / Pull / Legato, Tremollo, Slide, Bend and dead
+     notes !
+     (See note properties dialog box or type "h", "s", ... !)
+   * Can play Hammer / Pull / Legato, Tremollo, Slide and dead notes !
+   * String tuning dialog with guitar and bass pre-sets !
+   * Better toolbar's buttons behaviour (toggle the note properties and not the
+     buttons ;-)
+   * Better presentation ;-)
+   * Accept filename(s) on command line
+   * Bugfix :
+     * Clipboard is shared between all windows
+     * small other bugfixs
+
+ * April 2002 : GTablature 0.2.1
+   * Non-french non-english people can now use GTablature ;-)
+
+ * May 2002 : GTablature 0.3
+   * Documentation (look at ./doc/en/) !!!
+   * Multiple cancel / redo !
+   * Partitions can be muted
+   * The song.py module, that generate midi, can now be used independatly
+     of GTablature, if you need to generate midi in your (GPL'ed) project !
+   * Export as Ascii tablature !
+   * Lyrics text areas support copy / paste and can be selected along with
+     notes
+   * Rolls and bends are now supported !
+   * "True" stems and beams !
+   * Triplets !
+   * Bugfixes (plenty !)
+
+ * June 2002 : GTablature 0.4
+   * Printing with LaTeX and Lilypond (still experimental) !
+   * Drums !!!
+   * Drums "tuning" dialog !
+   * Import from Ascii tablature (tested only with GTablature Ascii tab...)
+   * Improved left/right movements as well as mouse click single note selection
+   * Ask for saving if needed on close, open or new
+   * Songs have now a language property (used by LaTeX)
+   * Banjo 5 strings in G added !
+   * Bugfix :
+     * Ascii tablatures with triplets
+     * Ascii tablatures with notes fretted at 10 or more
+
+ * July 2002 : GTablature 0.5
+   * System wide installation !
+   * Midi importation !
+   * Remember the recent opened files
+   * Documentation in HTML format
+   * Per-partition volume setting
+   * Bugfix :
+     * Cancel/redo state are now cleared on new/open file
+     * Saving bug
+     * Hammer/linked on lower strings with Lilypond
+
+ * July 2002 : GTablature 0.6 -- Never released --
+   * Zoom
+   * Better (and faster) multiple selection
+   * Bugfix :
+     * Better time unit
+     * Tempo should now be more correct
+     * "Creating a note, then moving it, then cancel both operation" bug
+     * Cancel / redo system generates sometimes multiple notes at the same location
+     * Cancel new partition
+     * Cancel partition deletion
+     * Cancel partition move up / down
+     * Main window too big in height now works well
+     * Midi importation was clashing with pitch wheel
+     * Midi importation was clashing with drums
+     * Midi importation gives wrong note's times and durations (all were * or / by 1.5)
+     * Other small bugfixes
+
+ * July 2002 : Songwrite 0.7
+   * Renamed "Songwrite" since it is no longer a part of Gnome
+   * Use the Tk toolkit instead of Gtk
+   * Use EditObj
+   * Mailing list available at TuxFamily !
+   * Cleaner internal design
+   * Use Unicode strings
+
+ * August 2002 : Songwrite 0.8
+   * New lyrics system -- the new system is not fully compatible with the
+     old one :-(
+   * Staffs !
+   * New "Arrange notes at fret..." function
+   * Per-window undo/redo stack
+   * Dialog boxes are undoable
+   * Doc is available in French
+   * Midi importation now works on drums too
+   * Bugfix :
+     * multiple windows was a lot confusing
+     * Non 4/4 bars were buggy
+     * Speed improvement (when changing a bunch of notes at the same time)
+     * Unicode error: accentuated character in the title of the song
+     * Copy/paste works between multiple windows
+     * Bends now ends
+     * Drums partitions can be hidden
+     * Midi importation no longer puts 2 notes at the same position
+     * Other small bugfixes
+
+ * October 2002 : Songwrite 0.9
+   * New XML file format !
+     The previous file format can still be read, though it may no
+     longer be supported in the next versions
+     See ./convert_to_xml for a script to convert your old files
+   * Lilypond conversion has been updated to the latest version of Lily
+   * Capo
+   * Better keyboard and mouse handling on labtop
+   * Bugfix :
+     * Staffs are now correctely tuned
+
+ * May 2003 : Songwrite 0.10
+   * Use EditObj 0.5
+   * Shows what is currently playing ("playbar")
+   * More command line options: exporting to midi, lilypond, postscript, ...
+     can now be done with a command line interface (see songwrite
+     --help).
+   * Man page
+   * Debian package (thanks Duck !)
+   * Bugfix :
+     * Tablature with slide/hammer can now be converted to staff
+     * Opening a file given on the command line now expect an XML file
+
+ * June 2003 : Songwrite 0.11
+   * Repeat / playlist (including printing and playing support)
+   * Guitar pro 3 and 4 importer
+   * Songbook (command line interface only)
+   * Page format is customizable
+   * Headers no longer scrolls on x dimension => they are always
+     visible
+   * Python console
+   * "Insert times", "Insert bars" functions
+   * "Playbar" can be disabled
+   * XML Schema (see songwrite.schema.xml), not tested yet !
+   * Bugfix :
+     * Midi exportation didn't work
+     * When printing / converting to Lilypond a song with several
+       partitions, the final bar of the song is no longer duplicated.
+     * When opening a song, reset the scroll bars
+     * Bend were not saveable
+
+ * July 2003 : Songwrite 0.12
+   * Delayed rendering resulting in much much faster file opening !
+   * Songbook support
+   * Tempo changing support (on playing / MIDI exportation)
+   * y/8 rythms support (where y = 3, 6, 9, 12, ...)
+   * The 5th string of the banjo 5G is now correctly displayed (i.e.
+     fret number are 0, 6, 7, 8,...)
+   * Workarround for playing with aRts/KDE version of Timidity if aRts
+     is not running
+   * Bugfix :
+     * Staff's memory leak fixed
+     * "Insert bars" function was removing the new bars at the end
+
+ * September 2004 : Songwrite 0.13
+   * Support Lilypond 2.3.12 (latest development version)
+     OLDER VERSIONS OF LILYPOND MAY NO LONGER BE SUPPORTED !
+   * Much better error handling when exporting / printing
+   * New "print tab + staff" option for tablature
+   * To avoid license problem in Debian, the documentation is now under
+     the GPL (it was previously under the GFDL).
+   * Bugfixes :
+     * Drums partition of some midi files were badly imported
+     * Better lyrics layout when printing
+     * Dialog box bug, when displaying a yes-no dialog after a file dialog
+
+ * June 2006 : Songwrite 0.14
+   * Icon added
+   * Bugfixes :
+     * Use package graphicx in latex exports
+     * Songbooks now save the song filenames with path relative to the
+       songbook filename
+
+ * September 2006 : Songwrite 0.15
+   * Add a "print size" song property
+   * Unicode (UTF-8) Lilypond and Latex export
+     (Warning, this may break support for old version of Lilypond;
+     my version (2.6.3) works well).
+   * Bugfixes :
+     * Use the --psfonts option, so as the notes are shown in the PDF export
+     * UTF-8 filename (e.g. in Ubuntu) now works well
+
+
+ * October 2007 : Songwrite 2 0.1rc1
+   * Full rewrite
+   * New interface with Gtk 2 and Cairo, EditObj 2, and nice icons :-)
+   * New documentation (GPL licence)
+   * Bugfixes:
+     * Escape some special characters (#°$...) when exporting to LaTeX
+     * Fix Rich Midi export and import
+     * Fix some weird English translations (e.g. "time" instead of "beat")
+
+ * October 2007 : Songwrite 2 0.1rc2
+   * Bugfixes:
+     * Data were not installed at the right location
+     * Starting script was unable to locate the Songwrite 2 modules
+       (ImportError: No module named songwrite2.plugins)
+     * In songbook and time edition modes, scroll bars were not
+       displayed well for the tree lists displaying songs or groups of
+       bars.
+     * Lyrics conversion to LaTeX was bugged on Songwrite 2 special
+       code (-, _,...).
+     * Fix Lilypond conversion for dead notes placed in chord.
+
+ * October 2007 : Songwrite 2 0.1
+   * Tempo defaults to 90 (instead of 60)
+   * Entirely rewrite the alteration system (sharp, bemol,...)
+   * Add experimental guitar pro importer
+   * Add export songbook menus
+   * Bigger toolbar icons
+   * Bugfixes:
+     * Dots on dotted notes were drawn twice
+     * If "ask filename on export" is false in the preference, but the
+       song has no filename (because it has never been saved), now
+       ask the user for a filename
+     * If "ask filename on export" is false in the preference, the "."
+       separating the generated filename and its extension was missing
+     * Fix Python module importations in several plugins
+     * Page format preference was not taken into account for PS -> PDF
+       conversion
+     * Inserting time menu didn't work when it was requiring to add
+       new bars
+     * Fix doc installation
+
+ * October 2007 : Songwrite 2 0.1.1
+   * Bugfixes:
+     * Guitar pro importer was missing
+
+ * October 2007 : Songwrite 2 0.1.2
+   * Bugfixes:
+     * Fix copy / paste of notes with alterations on staffs 
+     * Fix view name translation
+     * Fix "AttributeError: 'ObjectPack' object has no attribute 'song'" 
+       when selecting notes
+     * Fix copy-paste between different windows
+
+ * November 2008 : Songwrite 2 0.2 ("tin whistle release")
+   * Fingering notation for tin whistle and recorder
+   * Jig rhythm (6/8 with syncope)
+   * ABC import pluggin
+   * Native PostScript and PDF exporter (without Lilypond)
+   * Improve TextTab export (show string tuning, better line cutting,
+     more compact output) (thanks Seth)
+   * Show tempo when printing / exporting to Lilypond
+   * Add "select all" menu
+   * Zoom with Ctrl+mouse roll
+   * Bugfixes:
+     * Fix chord error handling in Lilypond export
+     * Fix "paste" menu and inter-application drag and drop
+     * Fix play tracker
+
+ * March 2009 : Songwrite 2 0.2.1
+   * Qt / Qtopia support (tested on Sharp Zaurus)
+   * When selecting a note, take the current duration into account in
+     a smarter way
+   * Allow to hide the edition panel
+   * Bugfixes:
+     * Fix songref in songbook edition dialog box
+     * Fix default filename when exporting
+     * Fix filename filter bug in import / export
+     * Fix legato in ABC importer
+     * Fix dot in ABC importer
+     * Fix playlist analysis in ABC importer
+     * Fix partial bars in ABC importer
+     * Fix hammer/pull update when the second note is modified
+     * Fix zoom when editing a new song
+     * Fix quarter tripplets
+     * Fix Texttab importer and exporter (string tuning was messing
+       around, thanks Adrian Quark)
+     * Fix launching from source directory (thanks Slawek)
+
+ * February 2011 : Songwrite 2 0.3
+   * Touchscreen support
+   * Lyre, Koyabu board and Ukulele support
+   * Support for F key, appoggiatura, harmonics, strumming direction
+     and rests
+   * Smarter copy-paste (autochoose between by string / by note pitch
+     more acurately)
+   * Name sharp and bemol notes adequately, depending of the tonality
+   * Add a window's icon
+   * Fontsize options for screen and printing 
+   * Interval identification: select 2 notes and Songwrite display the
+     corresponding interval in the title bar!
+   * Licence changed to GPL v3
+   * Bugfixes:
+     * Lyrics not placed at the bottom were bugged in PS/PDF export/printing
+     * Printing tabs with staffs was sometime causing an infinite loop
+     * Printing tabs with staffs was not showing # and b rightly on
+       the staff
+     * After playing, select the previously selected notes
+     * When reducing the length of ALL bars, the newly created bars at
+       the end now use the lew length
+     * Take capo into account when playing
+     * Can play hammer / pull / legato / slide with no limit of
+       amplitude
+     * Fix g8 staff
+     * Fix capo
+
+ * June 2011 : Songwrite 2 0.4
+   * Chord views support
+   * Accordion tablature support
+   * (Much) better and larger repeat symbols
+   * Scroll horizontally when the cursor is moved outside the screen
+     when entering lyrics
+   * Bugfixes:
+     * Fix space and - on desktop keyboard
+     * automatic duration was bugged when undoing the deletion of
+       several notes
+     * fix undoing/redoing view change
+     * fix crash when exporting in command-line
+

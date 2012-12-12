@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <annotation><documentation>
+    XML schema for SongWrite tablature files.
+    
+    As SongWrite parser is quite lazy and permissive,
+    the schema is NOT used for validation.
+    This file exists only for documentation purpose.
+    
+    THIS SCHEMA HAS NEVER BEEN TESTED NOR VALIDATED !!!
+    
+    Jiba
+  </documentation></annotation>
+  
+  <simpleType name="volumeType" base="integer">
+    <minInclusive value="0"/>
+    <maxInclusive value="255"/>
+  </simpleType>
+  
+  <simpleType name="reverbType" base="integer">
+    <minInclusive value="0"/>
+    <maxInclusive value="127"/>
+  </simpleType>
+  
+  <simpleType name="chorusType" base="integer">
+    <minInclusive value="0"/>
+    <maxInclusive value="127"/>
+  </simpleType>
+  
+  <simpleType name="capoType" base="integer">
+    <minInclusive value="0"/>
+    <maxInclusive value="12"/>
+  </simpleType>
+  
+  <simpleType name="instrumentType" base="integer">
+    <!-- MIDI instrument number, 128 for drums -->
+    
+    <minInclusive value="0"/>
+    <maxInclusive value="128"/>
+  </simpleType>
+  
+  <simpleType name="pitchType" base="integer">
+    <minInclusive value="0"/>
+    <maxInclusive value="127"/>
+  </simpleType>
+  
+  <simpleType name="fxType" base="string">
+    <enumeration value="normal"/>
+    <enumeration value="legato"/>
+    <enumeration value="hammer"/>
+    <enumeration value="slide"/>
+    <enumeration value="bend"/>
+    <enumeration value="dead"/>
+    <enumeration value="roll"/>
+    <enumeration value="tremolo"/>
+  </simpleType>
+  
+  <simpleType name="viewTypeType" base="string">
+    <enumeration value="tablature"/>
+    <enumeration value="staff"/>
+    <enumeration value="drums"/>
+  </simpleType>
+  
+  <simpleType name="notationType" base="string">
+    <enumeration value="top"/>
+    <enumeration value="down"/>
+  </simpleType>
+  
+  <element name="song">
+    <attribute name="version" type="string"   use="required" />
+    <attribute name="lang"    type="language" use="default" value="en"/>
+    <anyAttribute/>
+    
+    <complexType>
+      <element name="title"     type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="authors"   type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="copyright" type="string" minOccurs="0" maxOccurs="1"/>
+      <element name="comments"  type="string" minOccurs="0" maxOccurs="1"/>
+      
+      <element name="bars" minOccurs="0" maxOccurs="1">
+        <anyAttribute/>
+        
+        <complexType>
+          <element name="bar" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <attribute name="rythm"   type="string"             use="optional"/> <!-- defaults to latest value -->
+              <attribute name="tempo"   type="nonNegativeInteger" use="optional"/> <!-- defaults to latest value -->
+              <attribute name="syncope" type="boolean"            use="optional"/> <!-- defaults to latest value -->
+              <anyAttribute/>
+            </complexType>
+          </element>
+        </complexType>
+      </element>
+      
+      <element name="playlist" minOccurs="0" maxOccurs="1">
+        <anyAttribute/>
+        
+        <complexType>
+          <element name="play" minOccurs="0" maxOccurs="unbounded">
+            <complexType>
+              <attribute name="from" type="integer" minOccurs="1" use="required"/>
+              <attribute name="to"   type="integer" minOccurs="1" use="required"/>
+              <anyAttribute/>
+            </complexType>
+          </element>
+        </complexType>
+      </element>
+      
+      <element name="partition" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <attribute name="instrument" type="instrumentType" use="default" value="24"/>
+          <attribute name="muted"      type="boolean"        use="default" value="0"/>
+          <attribute name="volume"     type="volumeType"     use="default" value="255"/>
+          <attribute name="reverb"     type="reverbType"     use="default" value="0"/>
+          <attribute name="chorus"     type="chorusType"     use="default" value="0"/>
+          <attribute name="capo"       type="capoType"       use="default" value="0"/>
+          <attribute name="tonality"   type="string"         use="optional"/>
+          <anyAttribute/>
+          
+          <element name="header" type="string" minOccurs="0" maxOccurs="1">
+            <anyAttribute/>
+          </element>
+          
+          <element name="view" minOccurs="1" maxOccurs="1">
+            <attribute name="type"   type="viewTypeType" use="required"/>
+            <attribute name="hidden" type="boolean"      use="default" value="0"/>
+            <attribute name="g8"     type="boolean"      use="default" value="0"/>
+            <anyAttribute/>
+            
+            <complexType>
+              <element name="strings" minOccurs="0" maxOccurs="1">
+                <complexType>
+                  <element name="string" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                      <choice>
+                        <attribute name="pitch" type="pitchType" use="required"/>
+                        <attribute name="patch" type="pitchType" use="required"/>
+                      </choice>
+                      <attribute name="notation" type="notationType" use="default" value="top"/>
+                      <anyAttribute/>
+                    </complexType>
+                  </element>
+                </complexType>
+              </element>
+            </complexType>
+          </element>
+          
+          <element name="notes" minOccurs="0" maxOccurs="1">
+            <complexType>
+              <anyAttribute/>
+              
+              <element name="note" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                  <attribute name="pitch"       type="pitchType"  use="required"/>
+                  <attribute name="time"        type="float"      use="required"/>
+                  <attribute name="duration"    type="float"      use="required"/>
+                  <attribute name="volume"      type="volumeType" use="optional"/> <!-- defaults to latest value -->
+                  <attribute name="fx"          type="fxType"     use="default" value="normal"/>
+                  <attribute name="string"      type="integer"    use="optional"/>  <!-- only usefull for tablature -->
+                  <attribute name="id"          type="ID"         use="optional"/>
+                  <attribute name="linked_from" type="IDREF"      use="optional"/>
+                  <attribute name="linked_to"   type="IDREF"      use="optional"/>
+                  <anyAttribute/>
+                </complexType>
+              </element>
+            </complexType>
+          </element>
+        </complexType>
+      </element>
+      
+      <element name="lyrics" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <anyAttribute/>
+          
+          <element name="header" type="string" minOccurs="0" maxOccurs="1">
+            <anyAttribute/>
+          </element>
+          
+          <element name="text" minOccurs="1" maxOccurs="1">
+            <complexType content="mixed">
+              <anyAttribute/>
+              
+              <element name="br" minOccurs="0" maxOccurs="unbounded">
+                <complexType content="empty"/>
+              </element>
+              <element name="br-verse" minOccurs="0" maxOccurs="unbounded">
+                <complexType content="empty"/>
+              </element>
+            </complexType>
+          </element>
+        </complexType>
+      </element>
+      
+    </complexType>
+  </element>
+</schema>

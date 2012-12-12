@@ -1,0 +1,116 @@
+#! /usr/bin/python -O
+# -*- python -*-
+
+# Songwrite 2
+# Copyright (C) 2001-2010 Jean-Baptiste LAMY -- jibalamy@free.fr
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys, os, os.path
+sys.path.insert(0, os.path.join(os.path.dirname(sys.argv[0]), "..", "share"))
+
+#if os.path.dirname(sys.argv[0]).endswith("bin"): # /usr/{local/}bin
+#  sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), "..", "share")))
+#else: # Raw source not installed
+#  sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), "..")))
+
+import editobj2
+editobj2.GUI = "Gtk"
+
+import songwrite2.globdef
+import songwrite2.model as model
+import songwrite2.__editobj2__
+import songwrite2.plugins
+songwrite2.plugins.load_all_plugins()
+
+
+i          = 1
+create_new = 1
+mainloop   = 0
+task       = None
+output     = output_filename = None
+
+songs = []
+songbook = None
+
+while i < len(sys.argv):
+  arg = sys.argv[i]
+  
+  if arg == "--version":
+    create_new = 0
+    
+    print "Songwrite 2 version %s" % model.VERSION
+    
+  elif arg == "--help":
+    create_new = 0
+    
+    print """Songwrite 2 -- A music, score, tablature, fingering and lyrics editor by Jiba (jibalamy@free.fr)
+
+Usage:
+songwrite2 <file>...
+           --version
+           --help
+           --import <format> <input-file>
+           --export <format> <output-file>
+           --script <python script>
+
+Supported import format: %s.
+Supported export format: %s.""" % (", ".join(songwrite2.plugins.IMPORT_FORMATS), ", ".join(songwrite2.plugins.EXPORT_FORMATS))
+    
+  elif arg == "--import":
+    songs.append(songwrite2.plugins.get_importer(sys.argv[i + 1]).import_from(sys.argv[i + 2]))
+    i += 2
+    
+  elif arg == "--export":
+    for song in songs:
+      songwrite2.plugins.get_exporter(sys.argv[i + 1]).export_to(song, sys.argv[i + 2])
+    i += 2
+    songs = []
+    create_new = 0
+    
+  elif arg == "--script" :
+    script = sys.argv[i + 1]
+    song = songs[-1]
+    exec script
+    i += 1
+    
+  else: # It's a filename
+    song = model.get_song(arg)
+    if isinstance(song, model.Songbook):
+      songbook = song
+    else:
+      create_new = 0
+      songs.append(song)
+    
+
+  i += 1
+
+def load_main():
+  import songwrite2.main_gtk as main
+  return main
+
+
+if songs:
+  main = load_main()
+  for o in songs:
+    main.App(song = o)
+  main.mainloop()
+  
+elif create_new:
+  main = load_main()
+  app = main.App()
+  if songbook:
+    app.set_songbook(songbook)
+    app.on_songbook_prop()
+  main.mainloop()

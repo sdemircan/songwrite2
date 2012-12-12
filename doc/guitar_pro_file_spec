@@ -1,0 +1,589 @@
+        =====================================
+        GUITAR PRO FILE FORMAT SPECIFICATIONS
+        =====================================
+
+
+
+Introduction
+------------
+
+These specs are not official but guessed from some guitar pro files
+by Bertrand 'BLam' Lamy (blam@tuxfamily.org) of the SongWrite project
+(http://oomadness.tuxfamily.org/en/songwrite). I have started my work
+from the guitar pro importer of KGuitar written by Sylvain Vignaud 
+(vignsyl@iit.edu).
+
+All I will say concern guitar pro version 3.00 and 4.06 files, I simply
+don't know if it works for other/previous versions.
+
+There are still some unknown... Any help is welcome !!!
+More than 200 guitar pro 3 files has been parsed with success thanks
+to these specs.
+
+
+
+
+Symbols used
+------------
+
+'2': the value of a byte as a decimal.
+"x": the value of a byte as a char.
+
+BYTE: an integer coded onto 1 byte.
+
+LONG: an integer coded onto 4 bytes.
+
+COLOR: red, green, blue and alpha value, each coded onto 1 byte
+  (4 bytes in total for 1 COLOR).
+
+STRING: a BYTE containing the size of the string (nb) and then nb
+  chars describing the string.
+  example: byte = 5, chars = linux
+
+STRING[xxx]: just like a STRING but there are always xxx BYTEs after
+  the first BYTE containing the number of chars.
+
+LSTRING: a LONG containing the size of the string (nb) and then nb
+  chars describing the string.
+  example: long = 5, chars = linux
+
+LONGSTRING: a LONG (4 byte) describing the total size in bytes of the 
+  following STRING plus that STRING.
+  example: long = 6, byte = 5, chars = linux
+           long = 8, byte = 5, chars = linuxzz
+           Both of these LONGSTRING must be decoded as "linux"
+
+FIXED SIZE, VARIABLE SIZE: I have divided the file into structs. Some
+  have a fixed size, other have variable size. Whenever I refer to a
+  byte number (ie byte 5 is...), I start counting from the biginning
+  of the current struct, not the beginning of the entire file. For 
+  variable size struct, the data are packed is the order they are 
+  written.
+
+{ version >= xxx }: means that this structure is only present in guitar
+  pro file of version superior or egual than xxx. Sometimes I write gp3
+  or gp4 which refers to version 3.0 and 4.0
+
+
+
+File structure
+--------------
+
+
+struct FILE SIGNATURE (VARIABLE SIZE)
+
+  byte 0: size of the signature in byte
+  Then follows the signature itsef which depends of the guitar pro
+    file version:
+      "FICHIER GUITAR PRO v4.06"
+      "FICHIER GUITAR PRO v3.00"
+      "FICHIER GUITAR PRO v2.21"
+      "FICHIER GUITARE PRO v1.04"
+  6 BYTE UNKNOWN
+
+
+struct HEADER PART 1 (VARIABLE SIZE)
+
+  { version >= 3.0 }
+    LONGSTRING title 
+    LONGSTRING subtitle
+    LONGSTRING artist
+    LONGSTRING album
+    LONGSTRING author
+    LONGSTRING copyright
+    LONGSTRING tabled_by
+    LONGSTRING instruction
+    LONG notice_number_of_lines
+    Then follow notice_number_of_lines LONGSTRING, each corresponding to 1
+      line of notice (NB: you must add yourself the "\n" char between each 
+      line).
+    BYTE shuffle/syncope ('0' is not syncoped, '1' is syncoped)
+  { version < 3.0 }
+    BYTE UNKNOWN { version >= 2.0 }
+    STRING[100] title
+    BYTE UNKNOWN "3"
+    STRING[50] author
+    BYTE UNKNOWN "e"
+    STRING[100] instruction
+    144 BYTEs UNKNOWN
+
+
+struct LYRICS (VARIABLE SIZE) { version >= 4.0 }
+
+  LONG track_to_use_with_lyrics
+  Then there are 5 similar structs, 1 for each of the 5 lines of the lyrics:
+    LONG bar_number_where_the_line_of_lyric_begins
+    LSTRING lyric_line (if there is no lyrics, there is only a LONG set to
+      '0' ie an empty LSTRING)
+
+
+struct HEADER PART 2 (FIXED SIZE)
+
+  LONG tempo
+  { version 4.0 }
+    5 BYTEs UNKNOWN
+  { version 3.0 }
+    4 BYTEs UNKNOWN
+  { version < 3.0 }
+    2 LONGs UNKNOWN
+
+
+struct INSTRUMENTS
+
+  { version >= 3.0 } (FIXED SIZE - 768)
+    This part contains 64 structs, each describing 1 instrument, defined like 
+    this:
+      struct INSTRUMENT (FIXED SIZE - 12 bytes)
+        LONG instrument_midi_number
+        BYTE instrument_volume
+        BYTE instrument_pan (this value corresponds to the value showed in 
+          guitar pro + 8 cause the byte is unsigned. pan value in guitar pro
+          range from -8 to +8)
+        BYTE instrument_chorus
+        BYTE instrument_reverb
+        BYTE instrument_phaser
+        BYTE instrument_tremolo
+        BYTE UNKNOWN '0'
+        BYTE UNKNOWN '0'
+  { version < 3.0 } (VARIABLE SIZE)
+    There are allways 8 instruments:
+      struct INSTRUMENT (VARIABLE SIZE)
+        LONG size_in_number_of_long: this is the number of LONGs that follow
+          this one used to define the instrument
+        Then follow size_in_number_of_long LONGs UNKNOWN
+
+
+struct HEADER PART 3 (FIXED SIZE - 8 bytes)
+
+  LONG number_of_bars
+  { version >= 3.0 }
+    LONG number_of_tracks
+
+
+struct BARS INFO (VARIABLE SIZE) { version >= 3.0 }
+
+  There is 1 BARINFO structure per bar. Structure BARINFO have a variable size 
+    but always begin by a BYTE that is a flag. When several values are OR'ed 
+    in the flag and need more than 1 following arguments, the arguments are 
+    passed first for the lowest flag and then by increasing value of the flag 
+    (example: '3''6''8' -> flag is 3 ie 1 | 2 so there is a changement of 
+    rythm_1 to 6 and of rythm_2 to 8).
+
+  NB: I call rythm_1 and rythm_2 the 2 values that define the number of beat
+    per bar ie 4/4, 3/4, 6/8...
+
+  struct BARINFO (VARIABLE SIZE)
+    BYTE special_flag
+      '0': null flag, this bar have nothing special. The BYTE flag is followed 
+        by nothing (no argument follows).
+      '1': there is a changement of rythm_1 (notice that this changement is
+        permanent and will be applied to all following bars). The BYTE flag
+        is followed by:
+          BYTE new_rythm_1
+      '2': there is a changement of rythm_2 (notice that this changement is
+        permanent and will be applied to all following bars). The BYTE flag
+        is followed by:
+          BYTE new_rythm_2
+      '4': repeat section opens. No arg follows.
+      '8': repeat section ends (the part of the song from previous repeat section 
+        opening up to this bar will be repeated. if the section is only 1 bar
+        length, the bar has flag 4 | 8). The BYTE flag is followed by:
+          BYTE repeat_number
+      '16': alternative ending. The BYTE flag is followed by:
+          BYTE bar_number_where_to_jump
+      '32': this bar has a marker. The BYTE flag is followed by:
+          LONGSTRING marker_name
+          COLOR marker_color
+      '64': changement of armor (for staff). The BYTE flag is followed by:
+          BYTE new_armor, values are:
+            '-7': Cb
+            '-6': Gb
+            '-5': Db
+            '-4': Ab
+            '-3': Eb
+            '-2': Fb
+            '-1': F
+             '0': C
+             '1': G
+             '2': D
+             '3': A
+             '4': E
+             '5': B
+             '6': F#
+             '7': C#
+          BYTE minor ('0' is major, '1' is minor ie a C will become a Am)
+      '128': there is a double bar at the end of this bar. No arg follows.
+
+
+struct TRACKS INFOS (VARIABLE SIZE)
+
+  { version >= 3.0 }
+    Each track info is defined by a fixed size structure. Of course there are
+      as many track info structures has tracks number. Here is the structure of 
+      1 track info:
+    struct TRACKINFO (FIXED SIZE - 98 bytes)
+      byte  0: BYTE special_feature. I think this is a byte flag (even if the values
+        are never associated) with the following possible values:
+          '0': no special feature
+          '1': track is of type percussion/drum
+          '2': simulate 12 strings for 6 strings guitar
+          '4': banjo special 5th string
+      byte  1 to 41: STRING[40] track_name (limited size in fact, maximum 40 chars...)
+      byte 42 to 45: LONG number_of_strings
+      byte 46 to 49: LONG string_1_pitch
+      byte 50 to 53: LONG string_2_pitch
+      byte 54 to 57: LONG string_3_pitch
+      byte 58 to 61: LONG string_4_pitch
+      byte 62 to 65: LONG string_5_pitch
+      byte 66 to 69: LONG string_6_pitch
+      byte 70 to 73: LONG string_7_pitch
+        These are value for guitar strings tuning. The values are directly the ones
+        used in the MIDI format.
+      byte 74 to 77: LONG port_midi
+      byte 78 to 81: LONG channel_1 (main channel)
+      byte 82 to 85: LONG channel_2 (special effect channel)
+        The channel number correspond to the index into the instruments list decribed
+        above (use channel_1 to know which midi instrument is played by the track)
+      byte 86 to 89: LONG number_of_frets
+      byte 90 to 93: LONG capo_position
+      byte 94 to 97: COLOR track_color
+
+  { version < 3.0 }
+    There are allways 8 struct TRACKINFO defined as is:
+    struct TRACKINFO (FIXED SIZE - 71 bytes)
+      LONG midi_instrument_number
+      LONG number_of_frets
+      BYTE UNKNOWN ")"
+      STRING[40] track_name
+      BYTE UNKNOWN '0'
+      5 LONG UNKNOWN
+    It seems that last track is always drums.
+
+    BYTE UNKNOWN '1'
+    BYTE UNKNOWN '48'
+    2 BYTEs UNKNOWN
+    LONG UNKNOWN
+    2 BYTEs UNKNOWN
+    BYTE rythm_1
+    BYTE rythm_2
+
+
+struct BARS DATA (VARIABLE SIZE)
+
+  For each bar:
+    For each track:
+      LONG number_of_beats_in_the_bar
+      For each beat:
+        BEAT beat
+
+
+  I call a BEAT a ponctual instant where 1 or more notes (chords) are played.
+  The BEAT structure is defined as is:
+
+  struct BEAT (VARIABLE SIZE)
+    BYTE type_of_beat_flag
+    BYTE beat_duration. Possible values are:
+      '-2': whole
+      '-1': half
+       '0': quarter
+       '1': eighth
+       '2': sixteenth
+       '3': thirtysecond
+       '4': sixtyfourth
+    OPTIONAL STRUCTURES
+    BYTE strings_where_the_notes_of_this_beat_are_played
+    For each note:
+      NOTE note
+
+
+  type_of_beat_flag is a flag which can take the following values (associated 
+    with OR):
+       '1': this beat is dotted (duration x 1.5)
+       '2': there is a chord associated with this beat.
+       '4': there is a text associated with this beat.
+       '8': beat special effect.
+      '16': there is a changement of instrument/tempo/volume/pan/chorus/reverb/
+        tremolo/phaser associated with this beat.
+      '32': this beat is a tuplet (triolet...).
+      '64': this beat is a rest. In this case, a BYTE UNKNOWN follows the 
+        type_of_beat_flag byte.
+    Some of these flag also sign the presence of some structure in the OPTIONAL 
+      STRUCTURE zone (ie these structures are only present if the corresponding 
+      flag is set). The OPTIONAL STRUCTURE are packed in this order: lowest 
+      flag number first, highest flag number last.
+
+
+  OPTIONAL STRUCTURES (in the order they appear if there are more than 1) are:
+
+    [flag 32] -> LONG number_of_elements_in_the_tuplet
+
+    [flag 2] -> struct CHORD (FIXED SIZE - 75 bytes in gp4, 125 in gp3)
+      BYTE complete ('0' incomplete, '1' complete chord)
+      For incomplete chord (ie there is only the diagram or only the chord name):
+        LONGSTRING chord_name
+      For complete chord:
+        16 BYTE UNKNOWN { 25 in gp3 file }
+        STRING[10] chord_name
+        15 BYTE UNKNOWN { 24 in gp3 file }
+      LONG first/top_fret on the chord diagram (value '1' for the top of the 
+        fretboard, '0' means the chord diagram is not given, see below)
+      If the top_fret on the chord diagram is not '0', there are:
+        LONG fret_value_of_string_1 (higher - trebble)
+        LONG fret_value_of_string_2
+        LONG fret_value_of_string_3
+        LONG fret_value_of_string_4
+        LONG fret_value_of_string_5
+        LONG fret_value_of_string_6
+        LONG fret_value_of_string_7 (lower - bass) (absent if chord is incomplete
+          ie there are only 6 strings for incomplete chords)
+          NB: fret_value of -1 means that the string is not played
+      For complete chord:
+        For gp4 file:
+          24 BYTE UNKNOWN
+          BYTE finger_used_on_string_1 (higher - trebble)
+          BYTE finger_used_on_string_2
+          BYTE finger_used_on_string_3
+          BYTE finger_used_on_string_4
+          BYTE finger_used_on_string_5
+          BYTE finger_used_on_string_6
+          BYTE finger_used_on_string_7 (lower - bass)
+            Possible values for finger are:
+              '-2': unknown finger (this value appears for example with impossible 
+                chords that requires more than 4 fingers ;)
+              '-1': no string used (fret 0 played or string not played)
+               '0': thumb
+               '1': index
+               '2': middle
+               '3': ring
+               '4': little
+          BYTE fingering_displayed ('0' false, '1' true)
+        For gp3 file:
+          32 BYTE UNKNOWN
+
+    [flag 4] -> LONGSTRING beat_text
+
+    [flag 8] -> struct BEAT_SPECIAL_EFFECT
+      BYTE effet_1
+      BYTE effet_2 { version >= 4.0 }
+      Effect_1 arguments
+      Effect_2 arguments { version >= 4.0 }
+
+      Arguments are supplementary bytes that are only present if the corresponding effect
+      is applied on the note. Here are the possible values for the effect_1 and effect_2
+      flags:
+
+      Effect_1 values (flag):
+         '1': vibrato
+         '2': wide vibrato (apply on all the notes of the beat)
+         '4': natural harmonic
+         '8': other harmonic { version >= 4.0 }
+        '16': fade in
+        '32': different meaning in function of the version:
+           { version >= 4.0 }
+             strocke effect (tapping/slapping/popping). Argument:
+               BYTE strocke_type
+               '1': tapping
+               '2': slapping
+               '3': popping
+           { version < 3.0 }
+             tremolo bar. Arguments:
+               BYTE UNKNOWN '0'
+               LONG pitch (just like bend, 100 for a full tremolo)
+        '64': downstrocke/upstrocke. Followed by:
+           BYTE downstrocke_duration
+             '6': quarter
+             '5': eighth
+             '4': sixteenth
+             '3': thirtysecond
+             '2': sixtyfourth
+             '1': a hundred and twenty eighth
+             '0': no downstrocke
+           BYTE upstrocke_duration
+             '6': quarter
+             '5': eighth
+             '4': sixteenth
+             '3': thirtysecond
+             '2': sixtyfourth
+             '1': a hundred and twenty eighth
+             '0': no upstrocke
+
+      Effect_2 values (flag):
+         '1': rasgueado (this flag has a meaning only if there is a downstrocke or
+           upstrocke effect)
+         '2': pickstrocke. Argument:
+           BYTE direction:
+             '1': up
+             '2': down
+         '4': tremolo bar. Arguments are just like bend by:
+           BYTE UNKNOWN '6'
+           LONG UNKNOWN
+           LONG number_of_points_on_the_bend_curve
+           Then follows each point of the curve defined by this struct:
+             LONG point_time (range 0-60)
+             LONG point_pitch
+             BYTE point_vibrato ('0' false, '1' true)
+
+    [flag 16] -> struct CHANGE (VARIABLE SIZE)
+      BYTE new_instrument (midi instrument number)
+      BYTE new_volume
+      BYTE new_pan
+      BYTE new_chorus
+      BYTE new_reverb
+      BYTE new_phaser
+      BYTE new_tremolo
+      LONG new_tempo
+        NB: for each new_xxx argument, a value of '-1' means no change.
+      BYTE number_of_beat_for_volume__transition
+      BYTE number_of_beat_for_pan_____transition
+      BYTE number_of_beat_for_chorus__transition
+      BYTE number_of_beat_for_reverb__transition
+      BYTE number_of_beat_for_phaser__transition
+      BYTE number_of_beat_for_tremolo_transition
+      BYTE number_of_beat_for_tempo___transition
+        NB: each number_of_beat_for_xxx_transition argument is only present 
+          if the correponding new_xxx argument is not '-1'.
+      BYTE UNKNOWN { version >= 4.0 }
+
+
+  The strings_where_the_notes_of_this_beat_are_played is a flag with
+    the following possible values (associated with the OR operator):
+      '64': string 1 (higher - trebble)
+      '32': string 2
+      '16': string 3
+       '8': string 4
+       '4': string 5
+       '2': string 6
+       '1': string 7 (lower - bass)
+    Example: value '70' (= 64 | 4 | 2) means that there are 3 notes on string 1, 
+      5 and 6.
+  Then there is a variable number of NOTE (or nothing if string_where_the_notes_of_
+    this_beat_are_played equals '0'. WARNING: in some buggy file, some rest are
+    followed by some linked note). 
+    The first note given is the one of the highest string and then it is ordered
+    by increasing string number (note on string 1, then string 2, 3...).
+  
+
+  struct NOTE (VARIABLE SIZE)
+    BYTE note_special_flag
+        '1': note duration is different from beat duration.
+        '2': dotted note (duration x 1.5)
+        '4': ghost note
+        '8': note effect (hammer, slide...)
+       '16': changement of nuance (forte, fortissimo, piano...)
+       '32': there is a note (it is possible to have only certain effect and no 
+          note, for appogiature)
+       '64': accentuated note
+      '128': there is a finger associated with this note
+    If there is a note [flag 32], you will find:
+      BYTE note_alteration
+        '1': no alteration
+        '2': linked note
+        '3': dead note
+      If the note duration is different from beat duration there are 2 more BYTEs:
+        BYTE note_duration
+        BYTE UNKNOWN '1'
+      BYTE new_nuance (only present if there was a changement of nuance):
+        '1': ppp
+        '2': pp
+        '3': p
+        '4': mp
+        '5': mf
+        '6': f
+        '7': ff
+        '8': fff
+      BYTE fret_of_the_note (ie its value, '-1' is a dead note)
+    Note special arguments: variable number of BYTEs in function of the note_special_flag
+      value. The arguments, if there are more than 1, appear in this order:
+      [flag 128] -> fingering
+        BYTE left_hand_finger_used_to_play_the_note:
+          '-1': no left finger used (=> a right finger is used)
+           '0': thumb
+           '1': index
+           '2': middle
+           '3': ring
+           '4': little
+        BYTE right_hand_finger_used_to_play_the_note:
+          '-1': no right finger used (=> a left finger is used)
+           '0': thumb
+           '1': index
+           '2': middle
+           '3': ring
+           '4': little
+      [flag 8] -> effect
+        BYTE effect_1
+        BYTE effect_2 { version >= 4.0 }
+        Effect_1 arguments
+        Effect_2 arguments { version >= 4.0 }
+
+        Arguments are supplementary bytes that are only present if the corresponding effect
+        is applied on the note.
+        Here are the possible values for the effect_1 and effect_2 flags. Notice that for
+        gp3 file, harmonic and vibrato are only coded in the BEAT_SPECIAL_EFFECT structure
+        even if in these case the note have an effect (flag 8).
+
+        Effect_1 values (flag):
+          '0': no effect_1
+          '1': bend. Arguments:
+            BYTE UNKNOWN
+            LONG UNKNOWN
+            LONG number_of_points_on_the_bend_curve
+            Then follows each point of the curve defined by this struct:
+              LONG point_time (range 0-60)
+              LONG point_pitch (0 is no alteration, 100 for a full bend of 1, 200 for a bend
+                of 2, 150 for a bend of 1 and 1/2...)
+              BYTE point_vibrato ('0' is no vibrato, '1' for vibrato)
+          '2': hammer
+          '4': slide
+          '8': let ring
+         '16': appogiature. Arguments:
+            BYTE fret_value_of_the_note_that_precedate_the_current_note
+              (this is the appogiated note)
+              NB: a value of '-1' mean this is a dead note
+            BYTE UNKNOWN '6'
+            BYTE transition_type
+              '0': none
+              '1': slide
+              '2': bend
+              '3': hammer
+            BYTE appogiature_duration
+              '1': thirty second
+              '2': sixteenth
+              '3': eighth
+
+        Effect_2 values (flag):
+           '0': no effect_2
+           '1': staccato
+           '2': palm mute
+           '4': tremolo picking. Argument:
+             '1': eighth
+             '2': sixteenth
+             '3': thirtysecond
+           '8': slide. Argument:
+             '-2': pre-slide down
+             '-1': pre-slide up
+              '1': shift slide
+              '2': slide legato
+              '3': post-slide down
+              '4': post-slide up
+          '16': harmonic. Argument:
+             '1': natural harmonic
+             '3': tapped harmonic
+             '4': pitch harmonic
+             '5': semi harmonic
+            '15': artificial 5 harmonic
+            '17': artificial 7 harmonic
+            '22': artificial 12 harmonic
+          '32': trill. Argument:
+            BYTE fret_of_the_note_to_trill_with
+            BYTE trill_frequence:
+              '1': eighth
+              '2': sixteenth
+              '3': thirtysecond
+          '64': vibrato
+
+
+  NB: for drums, the encodage is the same but instead of the fret of the note, you get 
+  directly the drum patch number.
+  
+
+

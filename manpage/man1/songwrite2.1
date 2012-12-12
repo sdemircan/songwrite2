@@ -1,0 +1,45 @@
+.TH "Songwrite2" "1" "0.10" "Jiba (Lamy Jean-Baptiste)" ""
+.SH "NAME"
+.LP 
+Songwrite 2 \- A tablature and music editor
+.SH "SYNTAX"
+.LP 
+songwrite2
+.br 
+songwrite2 \fI\-\-help\fP
+.br 
+songwrite2 \fI\-\-version\fP
+.br 
+songwrite2 <\fIfilename...\fP>
+.br 
+songwrite2 \fI\-\-import\fP <\fIformat\fP> <\fIinput-file\fP>
+.br 
+songwrite2 <\fIfilename...\fP> \fI\-\-export\fP <\fIformat\fP> <\fIoutput-file\fP>
+.br 
+songwrite2 \fI\-\-import\fP <\fIformat\fP> <\fIinput-file\fP> \fI\-\-export\fP <\fIformat\fP> <\fIoutput-file\fP>
+.SH "DESCRIPTION"
+.LP 
+Songwrite 2 is a tablature (guitar partition) editor, with playing and printing ability. Songwrite is coded in Python; it relies on Timidity to play midi and on GNU Lilypond for printing.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fB\-\-help\fR
+Output help information and exit.
+.TP 
+\fB\-\-version\fR
+Output version information and exit.
+.TP 
+\fB\-\-import\fR <\fIformat\fP> <\fIinput-filename\fP>
+Import from file <\fIinput-filename\fP> of format <\fIformat\fP>.
+Use \fI\-\fP for  <\fIinput-filename\fP> to use standard input.
+.TP 
+\fB\-\-export\fR <\fIformat\fP> <\fIoutput-filename\fP>
+Export to file <\fIoutput-filename\fP> in format <\fIformat\fP>. No
+window are display (batch mode).
+Use \fI\-\fP for  <\fIoutput-filename\fP> to use standard output.
+.SH "FILES"
+.LP 
+\fI~/.songwrite2\fP 
+.SH "AUTHORS"
+.LP 
+Jiba (Lamy Jean\-Baptiste) <jibalamy@free.fr>
