@@ -15,5 +15,6 @@ binary-install/songwrite::
 	rmdir debian/$(cdbs_curpkg)/usr/share/$(cdbs_curpkg)/doc
 	#
 	find debian/$(cdbs_curpkg)/usr/share/locale -name "*.po" -exec rm {} \;
-	#
+
+binary-post-install/songwrite2::
 	rm debian/$(cdbs_curpkg)/usr/share/*.egg-info

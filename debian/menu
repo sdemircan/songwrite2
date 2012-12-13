@@ -1,5 +1,5 @@
 ?package(songwrite): needs="X11" \
   section="Applications/Sound" \
   title="Songwrite" \
-  command="/usr/bin/songwrite" \
-  icon="/usr/share/pixmaps/songwrite.xpm"
+  command="/usr/bin/songwrite2" \
+  icon="/usr/share/pixmaps/songwrite2.xpm"
