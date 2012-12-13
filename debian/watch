@@ -1,0 +1,7 @@
+version=3
+
+opts=uversionmangle=s/ongwrite2-/songwrite2-/ \
+http://download.gna.org/songwrite \
+	S(.*)\.tar\.gz \
+	debian uupdate
+

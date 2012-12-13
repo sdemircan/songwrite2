@@ -1,0 +1,19 @@
+Source: songwrite2
+Section: sound
+Priority: optional
+Maintainer: Serhat Rıfat Demircan <demircan.serhat@gmail.com>
+Build-Depends: debhelper (>= 5), cdbs (>= 0.4.62~), python, python-support
+XS-Python-Version: all
+Standards-Version: 3.8.4
+Homepage: http://home.gna.org/oomadness/en/songwrite/
+
+Package: songwrite2
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-editobj2, python-gtk2, python-cairo, evince | postscript-viewer, timidity | playmidi | pmidi
+Description: guitar tablature editor and player
+ Songwrite 2 is a music score and songbook editor. This software is
+ especially designed for musicians who do not master solfege
+ and to Linuxian musicians. Songwrite 2 can edit staffs, but also
+ tablatures (for guitar, bass, banjo, lyre, diatonic accordion,...) and
+ flute fingerings (for tin whistle, recorder,...); it also manages
+ lyrics. Songwrite 2 can play and print the partitions.

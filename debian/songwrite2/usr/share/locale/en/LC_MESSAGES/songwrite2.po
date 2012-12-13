@@ -1,0 +1,666 @@
+
+
+# Songwrite 2
+# Copyright (C) 2001-2011 Jean-Baptiste LAMY
+#
+
+msgid  "__accordion__push"
+msgstr "P"
+msgid  "__accordion__draw"
+msgstr "T"
+
+msgid  "__interval__0"
+msgstr "Unison"
+msgid  "__interval__1"
+msgstr "Half-tone"
+msgid  "__interval__2"
+msgstr "Tone"
+msgid  "__interval__3"
+msgstr "Minor third"
+msgid  "__interval__4"
+msgstr "Major third"
+msgid  "__interval__5"
+msgstr "Fourth"
+msgid  "__interval__6"
+msgstr "Diminished fifth"
+msgid  "__interval__7"
+msgstr "Fifth"
+msgid  "__interval__8"
+msgstr "Minor sixth"
+msgid  "__interval__9"
+msgstr "Major sixth"
+msgid  "__interval__10"
+msgstr "Minor seventh"
+msgid  "__interval__11"
+msgstr "Major seventh"
+msgid  "__interval__12"
+msgstr "Octavo"
+msgid  "__interval__14"
+msgstr "Nineth"
+msgid  "__interval__17"
+msgstr "Eleventh"
+msgid  "__interval__19"
+msgstr "Thirteenth"
+
+msgid  "ENGLISH_CHORD_NAME"
+msgstr "Use English chord names"
+msgid  "__default_chord_names__"
+msgstr "english"
+
+msgid  "gtk-save"
+msgstr "Save"
+msgid  "gtk-print"
+msgstr "Print preview..."
+msgid  "gtk-undo"
+msgstr "Undo"
+msgid  "gtk-redo"
+msgstr "Redo"
+msgid  "gtk-media-play"
+msgstr "Play"
+msgid  "gtk-media-stop"
+msgstr "Stop"
+
+msgid  "AUTOMATIC_DURATION"
+msgstr "Automatic note duration"
+msgid  "FONTSIZE"
+msgstr "Screen font size (0 auto)"
+
+msgid  "GuitarView"
+msgstr "Tablature : guitar"
+msgid  "GuitarDADGADView"
+msgstr "Tablature : guitar DADGAD"
+msgid  "BassView"
+msgstr "Tablature : bass"
+msgid  "Banjo5GView"
+msgstr "Tablature : banjo 5G"
+msgid  "MandolinView"
+msgstr "Tablature : mandolin"
+msgid  "UkuleleView"
+msgstr "Tablature : ukulele"
+msgid  "AccordionView"
+msgstr "Tablature : accordion (right hand)"
+msgid  "PianoView"
+msgstr "Staff : piano"
+msgid  "FluteView"
+msgstr "Staff : flute"
+msgid  "GuitarStaffView"
+msgstr "Staff : guitar"
+msgid  "AccordionStaffView"
+msgstr "Staff : accordion"
+msgid  "VocalsView"
+msgstr "Staff : vocals"
+msgid  "EmptyDrumView"
+msgstr "Drums (empty)"
+msgid  "TomView"
+msgstr "Drums : tom"
+msgid  "CymbalView"
+msgstr "Drums : cymbal"
+msgid  "TriangleView"
+msgstr "Drums : triangle"
+msgid  "TimbaleView"
+msgstr "Drums : timbale"
+msgid  "BongoView"
+msgstr "Drums : bongo"
+msgid  "CongaView"
+msgstr "Drums : conga"
+msgid  "TinWhistleView"
+msgstr "Fingering : tin whistle"
+msgid  "RecorderView"
+msgstr "Fingering : recorder"
+msgid  "SixStringLyreView"
+msgstr "Tablature : 6-string lyre"
+msgid  "SevenStringLyreView"
+msgstr "Tablature : 7-string lyre"
+msgid  "KoyabuView"
+msgstr "Tablature : koyabu board"
+msgid  "GuitarChordView"
+msgstr "Chords : guitar"
+msgid  "PianoChordView"
+msgstr "Chords : piano"
+msgid  "AccordionChordView"
+msgstr "Chords : accordion (left hand)"
+msgid  "SixStringLyreChordView"
+msgstr "Chords : 6-string lyre"
+msgid  "SevenStringLyreChordView"
+msgstr "Chords : 7-string lyre"
+
+msgid  "Dump"
+msgstr "Dump XML code"
+msgid  "GC"
+msgstr "Execute garbage collection (GC)"
+msgid  "view_type"
+msgstr "view as"
+msgid  "__add_partition__"
+msgstr "Available partition views"
+msgid  "__add_partition_details__"
+msgstr "Select the partition and partition's view you want to add."
+msgid  "notation_pos"
+msgstr "stem direction"
+msgid  "bend_pitch"
+msgstr "bend pitch"
+msgid  "g8"
+msgstr "octavied key (g8)"
+msgid  "lang"
+msgstr "language"
+msgid  "up"
+msgstr "Strumming direction up"
+msgid  "down"
+msgstr "Strumming direction down"
+msgid  "down_thumb"
+msgstr "Strumming direction down (thumb)"
+
+msgid  "__songwrite_file_format__"
+msgstr "Songwrite (1 and 2) XML files"
+
+msgid  "__unsupported-rythm__"
+msgstr "Unsupported rythm"
+msgid  "__unsupported-rythm-message__"
+msgstr "Warning! Rythm %s/%s is not supported.\nCurrently, only  x/4 and y/8 (with y / 3 = 0) rythms are accepted."
+msgid  "__fucking-arts__"
+msgstr "You're trying to use a aRts-based version of Timidity, but the artsd server is not running. As a workarround, Songwrite will try to create another config file for Timidity (%s), but you should install a non-aRts/KDE version of Timidity."
+msgid  "__UnknownError__"
+msgstr "Unknown error has occured, see console."
+msgid  "__TimeError__"
+msgstr "There is an error at the selected beat (or maybe just before); sorry i don't have more info :-("
+msgid  "__ChordError__"
+msgstr "There is an error at the selected beat (or maybe just before). More than thre notes are played simultaneously though they are not forming a chord (they have different durations)."
+msgid  "__UnsingablePartitionError__"
+msgstr "There is an error on the selected note : several notes are sung simultaneously on the same partition, which is not humanly do-able!\nTypically this error occurs when there is a duration error in the partition."
+
+#msgid  "New tab"
+#msgstr "New tablature"
+msgid  "tab"
+msgstr "Tablature"
+msgid  "drums"
+msgstr "Drums"
+msgid  "EmptyDrums"
+msgstr "Drums"
+msgid  "staff"
+msgstr "Staff"
+msgid  "chords"
+msgstr "Chords"
+msgid  "preview_print"
+msgstr "(Preview) print..."
+msgid  "preview_print_songbook"
+msgstr "(Preview) print songbook..."
+msgid  "nb_time"
+msgstr "number of beat"
+msgid  "nb_bar"
+msgstr "number of bar"
+msgid  "filename"
+msgstr "Filename"
+msgid  "Roll"
+msgstr "Roll / run"
+msgid  "dead"
+msgstr "dead note"
+
+msgid  "printfontsize"
+msgstr "print font size"
+msgid  "print_nb_mesures_per_line"
+msgstr "number of bars per line\nwhen printing"
+
+msgid  "print_with_staff_too"
+msgstr "print tab + staff"
+msgid  "let_ring"
+msgstr "let ring"
+msgid  "g_key"
+msgstr "G key"
+msgid  "f_key"
+msgstr "F key"
+msgid  "show_all_lines_on_melody"
+msgstr "Print all lines with melody"
+msgid  "show_all_lines_after_score"
+msgstr "Print all lines after score"
+
+msgid  "MIDI_COMMAND"
+msgstr "Midi player command"
+msgid  "PREVIEW_COMMAND_PDF"
+msgstr "PDF viewer command"
+msgid  "PAGE_FORMAT"
+msgstr "Page format"
+#msgid  "PLAY_LOOP"
+#msgstr "play in loop"
+msgid  "DISPLAY_PLAY_BAR"
+msgstr "display notes currently playing"
+msgid  "NUMBER_OF_UNDO"
+msgstr "number of possible undo"
+msgid  "LAST_DIR"
+msgstr "default directory"
+#msgid  "SIDE_BAR_POSITION"
+#msgstr "edition pane position"
+msgid  "ASK_FILENAME_ON_EXPORT"
+msgstr "ask filename on export"
+msgid  "PLAY_AS_TYPING"
+msgstr "play as typing"
+msgid  "NUMBER_OF_PREVIOUS_FILES"
+msgstr "number of previous files"
+
+msgid  "__config_preamble__"
+msgstr "Songwrite 2 use an external program to play MIDI files (Timidity by default).\nAnother possible command is \"playmidi %s\".\n\nThe postcript command is the one used for viewing files before printing.\n\nIn both command, %s is replaced by the name of the file to play or to display."
+msgid  "__about__"
+msgstr "Songwrite 2 is a music score and songbook editor. This software is especially designed for musicians who do not master solfege (like me!) and to Linuxian musicians. Songwrite 2 can edit staffs, but also tablatures (for guitar, bass, banjo, lyre, accordion,...) and flute fingerings (for tin whistle and recorder); it also manages lyrics. Songwrite 2 can play and print the partitions.\n\nSongwrite 2 is a free software (libre software) written in Python. It is available under GNU GPL."
+
+msgid  "instrument_tonality"
+msgstr "instrument tonality"
+msgid  "tonality_C"
+msgstr "C"
+msgid  "tonality_G"
+msgstr "G"
+msgid  "tonality_D"
+msgstr "D"
+msgid  "tonality_A"
+msgstr "A"
+msgid  "tonality_E"
+msgstr "E"
+msgid  "tonality_B"
+msgstr "B"
+msgid  "tonality_F#"
+msgstr "F ♯"
+msgid  "tonality_C#"
+msgstr "C ♯"
+msgid  "tonality_F"
+msgstr "F"
+msgid  "tonality_Bb"
+msgstr "B ♭"
+msgid  "tonality_Eb"
+msgstr "E ♭"
+msgid  "tonality_Ab"
+msgstr "A ♭"
+msgid  "tonality_Db"
+msgstr "D ♭"
+msgid  "tonality_Gb"
+msgstr "G ♭"
+msgid  "tonality_Cb"
+msgstr "C ♭"
+
+msgid  "note_0"
+msgstr "C"
+msgid  "note_1"
+msgstr "D ♭"     # Avoid publicity for the worst language i've ever seen...
+msgid  "note_2"
+msgstr "D"
+msgid  "note_3"
+msgstr "D ♯"
+msgid  "note_4"
+msgstr "E"
+msgid  "note_5"
+msgstr "F"
+msgid  "note_6"
+msgstr "F ♯"
+msgid  "note_7"
+msgstr "G"
+msgid  "note_8"
+msgstr "G ♯"
+msgid  "note_9"
+msgstr "A"
+msgid  "note_10"
+msgstr "A ♯"
+msgid  "note_11"
+msgstr "B"
+msgid  "en_note_0"
+msgstr "C"
+msgid  "en_note_1"
+msgstr "D ♭"     # Avoid publicity for the worst language i've ever seen...
+msgid  "en_note_2"
+msgstr "D"
+msgid  "en_note_3"
+msgstr "D ♯"
+msgid  "en_note_4"
+msgstr "E"
+msgid  "en_note_5"
+msgstr "F"
+msgid  "en_note_6"
+msgstr "F ♯"
+msgid  "en_note_7"
+msgstr "G"
+msgid  "en_note_8"
+msgstr "G ♯"
+msgid  "en_note_9"
+msgstr "A"
+msgid  "en_note_10"
+msgstr "A ♯"
+msgid  "en_note_11"
+msgstr "B"
+
+msgid  "rythm1"
+msgstr "beats per bar"
+msgid  "rythm2"
+msgstr "beat's duration"
+msgid  "syncope"
+msgstr "syncope picking"
+#msgid  "special_effect_name"
+#msgstr "special effect"
+msgid  "fx"
+msgstr "special effect"
+msgid  "link_fx"
+msgstr "special link"
+msgid  "duration_fx"
+msgstr "special duration"
+msgid  "strum_dir_fx"
+msgstr "strum direction"
+
+msgid  "TablatureString"
+msgstr "%s String"
+msgid  "base_note"
+msgstr "base note"
+msgid  "String (Banjo 5G)"
+msgstr "%s String (Banjo 5G)"
+
+msgid  "playlist"
+msgstr "Repeats"
+msgid  "__PlaylistItem__"
+msgstr "bar #%s -> #%s"
+msgid  "from_mesure"
+msgstr "from bar"
+msgid  "to_mesure"
+msgstr "to bar"
+msgid  "from_mesure1"
+msgstr "from bar"
+msgid  "to_mesure1"
+msgstr "to bar"
+
+msgid  "__percu__"
+msgstr "35 Acoustic Bass Drum\n \
+36 Bass Drum 1\n \
+37 Side Stick\n \
+38 Acoustic Snare\n \
+39 Hand Clap\n \
+40 Electric Snare\n \
+41 Low Floor Tom\n \
+42 Closed Hi-Hat\n \
+43 High Floor Tom\n \
+44 Pedal Hi-Hat\n \
+45 Low Tom\n \
+46 Open Hi-Hat\n \
+47 Low-Mid Tom\n \
+48 Hi-Mid Tom\n \
+49 Crash Cymbal 1\n \
+50 High Tom\n \
+51 Ride Cymbal 1\n \
+52 Chinese Cymbal\n \
+53 Ride Bell\n \
+54 Tambourine\n \
+55 Splash Cymbal\n \
+56 Cowbell\n \
+57 Crash Cymbal 2\n \
+58 Vibraslap\n \
+59 Ride Cymbal 2\n \
+60 Hi Bongo\n \
+61 Low Bongo\n \
+62 Mute Hi Conga\n \
+63 Open Hi Conga\n \
+64 Low Conga\n \
+65 High Timbale\n \
+66 Low Timbale\n \
+67 High Agogo\n \
+68 Low Agogo\n \
+69 Cabasa\n \
+70 Maracas\n \
+71 Short Whistle\n \
+72 Long Whistle\n \
+73 Short Guiro\n \
+74 Long Guiro\n \
+75 Claves\n \
+76 Hi Wood Block\n \
+77 Low Wood Block\n \
+78 Mute Cuica\n \
+79 Open Cuica\n \
+80 Mute Triangle\n \
+81 Open Triangle"
+
+msgid  "__instru__"
+msgstr "0 Acoustic Grand Piano\n \
+1 Bright Acoustic Piano\n \
+2 Electric Grand Piano\n \
+3 Honky-Tonk Piano\n \
+4 Electric Piano 1\n \
+5 Electric Piano 2\n \
+6 Harpsichord\n \
+7 Clavinet\n \
+8 Celesta\n \
+9 Glockenspiel\n \
+10 Music Box\n \
+11 Vibraphone\n \
+12 Marimba\n \
+13 Xylophone\n \
+14 Tubular Bells\n \
+15 Dulcimer\n \
+16 Drawbar Organ\n \
+17 Percussive Organ\n \
+18 Rock Organ\n \
+19 Church Organ\n \
+20 Reed Organ\n \
+21 Accoridan\n \
+22 Harmonica\n \
+23 Tango Accordian\n \
+24 Nylon String Guitar\n \
+25 Steel String Guitar\n \
+26 Electric Jazz Guitar\n \
+27 Electric Clean Guitar\n \
+28 Electric Muted Guitar\n \
+29 Overdriven Guitar\n \
+30 Distortion Guitar\n \
+31 Guitar Harmonics\n \
+32 Acoustic Bass\n \
+33 Electric Bass(finger)\n \
+34 Electric Bass(pick)\n \
+35 Fretless Bass\n \
+36 Slap Bass 1\n \
+37 Slap Bass 2\n \
+38 Synth Bass 1\n \
+39 Synth Bass 2\n \
+40 Violin\n \
+41 Viola\n \
+42 Cello\n \
+43 Contrabass\n \
+44 Tremolo Strings\n \
+45 Pizzicato Strings\n \
+46 Harpe\n \
+47 Timpani\n \
+48 String Ensemble 1\n \
+49 String Ensemble 2\n \
+50 SynthStrings 1\n \
+51 SynthStrings 2\n \
+52 Choir Aahs\n \
+53 Voice Oohs\n \
+54 Synth Voice\n \
+55 Orchestra Hit\n \
+56 Trumpet\n \
+57 Trombone\n \
+58 Tuba\n \
+59 Muted Trumpet\n \
+60 French Horn\n \
+61 Brass Section\n \
+62 SynthBrass 1\n \
+63 SynthBrass 2\n \
+64 Soprano Sax\n \
+65 Alto Sax\n \
+66 Tenor Sax\n \
+67 Baritone Sax\n \
+68 Oboe\n \
+69 English Horn\n \
+70 Bassoon\n \
+71 Clarinet\n \
+72 Piccolo\n \
+73 Flute\n \
+74 Recorder\n \
+75 Pan Flute\n \
+76 Blown Bottle\n \
+77 Skakuhachi\n \
+78 Whistle\n \
+79 Ocarina\n \
+80 Lead 1 (square)\n \
+81 Lead 2 (sawtooth)\n \
+82 Lead 3 (calliope)\n \
+83 Lead 4 (chiff)\n \
+84 Lead 5 (charang)\n \
+85 Lead 6 (voice)\n \
+86 Lead 7 (fifths)\n \
+87 Lead 8 (bass+lead)\n \
+88 Pad 1 (new age)\n \
+89 Pad 2 (warm)\n \
+90 Pad 3 (polysynth)\n \
+91 Pad 4 (choir)\n \
+92 Pad 5 (bowed)\n \
+93 Pad 6 (metallic)\n \
+94 Pad 7 (halo)\n \
+95 Pad 8 (sweep)\n \
+96 FX 1 (rain)\n \
+97 FX 2 (soundtrack)\n \
+98 FX 3 (crystal)\n \
+99 FX 4 (atmosphere)\n \
+100 FX 5 (brightness)\n \
+101 FX 6 (goblins)\n \
+102 FX 7 (echoes)\n \
+103 FX 8 (sci-fi)\n \
+104 Sitar\n \
+105 Banjo\n \
+106 Shamisen\n \
+107 Koto\n \
+108 Kalimba\n \
+109 Bagpipe\n \
+110 Fiddle\n \
+111 Shanai\n \
+112 Tinkle Bell\n \
+113 Agogo\n \
+114 Steel Drums\n \
+115 Woodblock\n \
+116 Taiko Drum\n \
+117 Melodic Tom\n \
+118 Synth Drum\n \
+119 Reverse Cymbal\n \
+120 Guitar Fret Noise\n \
+121 Breath Noise\n \
+122 Seashore\n \
+123 Bird Tweet\n \
+124 Telephone Ring\n \
+125 Helicopter\n \
+126 Applause\n \
+127 Gunshot\n \
+128 Drums"
+
+msgid  "__lang__en"
+msgstr "English"
+msgid  "__lang__gu"
+msgstr "Gujarati"
+msgid  "__lang__ca"
+msgstr "Catalan"
+msgid  "__lang__cy"
+msgstr "Welsh"
+msgid  "__lang__ga"
+msgstr "Irish"
+msgid  "__lang__cs"
+msgstr "Czech"
+msgid  "__lang__gl"
+msgstr "Galician"
+msgid  "__lang__pt"
+msgstr "Portuguese"
+msgid  "__lang__la"
+msgstr "Latin"
+msgid  "__lang__lo"
+msgstr "Lao"
+msgid  "__lang__tr"
+msgstr "Turkish"
+msgid  "__lang__lv"
+msgstr "Latvian"
+msgid  "__lang__lt"
+msgstr "Lithuanian"
+msgid  "__lang__pa"
+msgstr "Panjabi"
+msgid  "__lang__tk"
+msgstr "Turkmen"
+msgid  "__lang__te"
+msgstr "Telugu"
+msgid  "__lang__pl"
+msgstr "Polish"
+msgid  "__lang__ta"
+msgstr "Tamil"
+msgid  "__lang__hy"
+msgstr "Armenian"
+msgid  "__lang__hr"
+msgstr "Croatian"
+msgid  "__lang__de"
+msgstr "German"
+msgid  "__lang__da"
+msgstr "Danish"
+msgid  "__lang__hi"
+msgstr "Hindi"
+msgid  "__lang__--"
+msgstr "--"
+msgid  "__lang__ml"
+msgstr "Malayalam"
+msgid  "__lang__mn"
+msgstr "Mongolian"
+msgid  "__lang__uk"
+msgstr "Ukrainian"
+msgid  "__lang__mr"
+msgstr "Marathi"
+msgid  "__lang__el"
+msgstr "Greek"
+msgid  "__lang__eo"
+msgstr "Esperanto"
+msgid  "__lang__is"
+msgstr "Icelandic"
+msgid  "__lang__it"
+msgstr "Italian"
+msgid  "__lang__sv"
+msgstr "Swedish"
+msgid  "__lang__ia"
+msgstr "Interlingua"
+msgid  "__lang__as"
+msgstr "Assamese"
+msgid  "__lang__ar"
+msgstr "Arabic"
+msgid  "__lang__eu"
+msgstr "Basque"
+msgid  "__lang__et"
+msgstr "Estonian"
+msgid  "__lang__id"
+msgstr "Indonesian"
+msgid  "__lang__es"
+msgstr "Spanish"
+msgid  "__lang__ru"
+msgstr "Russian"
+msgid  "__lang__nl"
+msgstr "Dutch"
+msgid  "__lang__nn"
+msgstr "Norwegian Nynorsk"
+msgid  "__lang__nb"
+msgstr "Norwegian Bokmål"
+msgid  "__lang__ro"
+msgstr "Romanian"
+msgid  "__lang__fr"
+msgstr "French"
+msgid  "__lang__bg"
+msgstr "Bulgarian"
+msgid  "__lang__bn"
+msgstr "Bengali"
+msgid  "__lang__fa"
+msgstr "Persian"
+msgid  "__lang__fi"
+msgstr "Finnish"
+msgid  "__lang__hu"
+msgstr "Hungarian"
+msgid  "__lang__sr"
+msgstr "Serbian"
+msgid  "__lang__kn"
+msgstr "Kannada"
+msgid  "__lang__sk"
+msgstr "Slovak"
+msgid  "__lang__ku"
+msgstr "Kurdish"
+msgid  "__lang__sl"
+msgstr "Slovenian"
+msgid  "__lang__sa"
+msgstr "Sanskrit"
+msgid  "__lang__or"
+msgstr "Oriya"
+
+msgid  ""
+msgstr ""
+
+"Project-Id-Version: Songwrite 2\n"
+"Last-Translator: Jean-Baptiste LAMY <jiba@tuxfamily.org>\n"
+"Language-Team: english <jiba@tuxfamily.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"

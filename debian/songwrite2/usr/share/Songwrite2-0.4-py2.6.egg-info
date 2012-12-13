@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: Songwrite2
+Version: 0.4
+Summary: Tablature editor in Python with Gtk 2, Cairo, EditObj 2, Timidity
+Home-page: http://home.gna.org/oomadness/en/songwrite/index.html
+Author: Lamy Jean-Baptiste
+Author-email: jibalamy@free.fr
+License: GPL
+Description: UNKNOWN
+Platform: UNKNOWN

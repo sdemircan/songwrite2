@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+DEB_PYTHON_SYSTEM = pysupport
+include /usr/share/cdbs/1/class/python-distutils.mk
+
+DEB_PYTHON_INSTALL_ARGS_ALL += --install-lib=/usr/share
+
+binary-install/songwrite::
+	find debian/$(cdbs_curpkg)/usr/share/ -type f -exec chmod -R a-x {} \;
+	#
+	mkdir -p debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/
+	mv debian/$(cdbs_curpkg)/usr/share/$(cdbs_curpkg)/doc/* debian/$(cdbs_curpkg)/usr/share/doc/$(cdbs_curpkg)/
+	rmdir debian/$(cdbs_curpkg)/usr/share/$(cdbs_curpkg)/doc
+	#
+	find debian/$(cdbs_curpkg)/usr/share/locale -name "*.po" -exec rm {} \;
+	#
+	rm debian/$(cdbs_curpkg)/usr/share/*.egg-info
